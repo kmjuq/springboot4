@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo
+  devtools:
+    add-properties: true
+
+logging:
+  level:
+    root: DEBUG
