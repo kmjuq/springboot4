@@ -1,10 +1,12 @@
-package com.example.demo.infra.entity;
+package com.example.demo.infra.persist.po;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("PERSON")
-public class PersonDO {
+@Data
+@Table("person")
+public class PersonPO {
 
 	@Id
 	private Long id;

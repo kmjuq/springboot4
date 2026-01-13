@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        serverAddr: 127.0.0.1:50681
+        username: 'nacos'
+        password: '111'
+      config:
+        import-check:
+          enabled: false
+        server-addr: 127.0.0.1:50681
+        username: 'nacos'
+        password: '111'

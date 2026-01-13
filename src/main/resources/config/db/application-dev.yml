@@ -1,0 +1,13 @@
+spring:
+  # 数据库连接配置
+  r2dbc:
+    url: r2dbc:postgresql://localhost:50690/mydatabase  # 连接地址（IP:端口/数据库名）
+    username: myuser  # 数据库用户名
+    password: secret  # 数据库密码
+    # R2DBC Pool 标准配置
+    pool:
+      max-size: 10                # 最大连接数（替代 maximum-pool-size）
+      initial-size: 5             # 初始连接数（替代 minimum-idle）
+      idle-time: 300000           # 空闲连接超时（替代 idle-timeout）
+      max-acquire-time: 20000     # 连接获取超时（替代 connection-timeout）
+      max-life-time: 600000       # 连接最大生命周期（可选，推荐添加）

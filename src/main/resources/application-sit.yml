@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: sit
+  docker:
+    compose:
+      enabled: false
+
+logging:
+  root:
+    level: INFO
+
+springdoc:
+  api-docs:
+    enabled: false

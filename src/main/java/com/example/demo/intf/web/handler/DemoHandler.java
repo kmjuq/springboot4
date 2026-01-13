@@ -1,6 +1,7 @@
-package com.example.demo.api;
+package com.example.demo.intf.web.handler;
 
-import com.example.demo.domain.entity.Person;
+import com.example.demo.app.service.DemoService;
+import com.example.demo.domain.model.entity.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -21,4 +22,5 @@ public class DemoHandler {
         Mono<Person> people = demoService.findOne(Long.valueOf(id));
         return ok().contentType(APPLICATION_JSON).body(people, Person.class);
     }
+
 }

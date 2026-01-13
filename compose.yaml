@@ -6,11 +6,14 @@ services:
       - 'POSTGRES_PASSWORD=secret'
       - 'POSTGRES_USER=myuser'
     ports:
-      - 50600:5432
+      - "50690:5432"
 
   adminer:
     image: adminer
+    environment:
+      # 在web界面的url上只需要填写postgres即可
+      - ADMINER_DEFAULT_SERVER=postgres
     ports:
-      - 50690:8080
+      - "50691:8080"
     depends_on:
       - postgres

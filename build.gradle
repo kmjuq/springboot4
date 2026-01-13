@@ -1,0 +1,88 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.0.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+// 定义 MapStruct 版本（统一管理，便于维护）
+ext {
+    mapstructVersion = "1.5.5.Final"
+    springdocVersion = "3.0.1"
+    springModulithVersion = "2.0.1"
+    snippetsDir = file 'build/generated-snippets'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    // 1. 阿里云通用仓库（优先，存放所有Maven Central的通用依赖）
+    maven { url = 'https://maven.aliyun.com/repository/public' }
+    // 2. 阿里云Gradle插件仓库（仅用于插件，兜底）
+    maven { url = 'https://maven.aliyun.com/repository/gradle-plugin' }
+}
+
+// 对应 Maven 的 <dependencyManagement> 块
+dependencyManagement {
+    imports {
+        // 引入 springdoc-openapi-bom，等价于 Maven 的 <scope>import</scope>
+        mavenBom "org.springdoc:springdoc-openapi-bom:${springdocVersion}"
+        mavenBom "org.springframework.modulith:spring-modulith-bom:${springModulithVersion}"
+    }
+}
+
+dependencies {
+    // Spring Boot 核心依赖
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    implementation 'org.springframework.boot:spring-boot-starter-jooq'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-webclient'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    // Spring Modulith
+    implementation 'org.springframework.modulith:spring-modulith-core'
+    implementation 'org.springframework.modulith:spring-modulith-events-api'
+    implementation 'org.springframework.modulith:spring-modulith-moments'
+
+    // 数据库依赖
+    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'org.postgresql:r2dbc-postgresql'
+    // MapStruct 依赖
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    // Lombok 依赖
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // 若同时使用 Lombok + MapStruct，需添加下面的依赖解决注解冲突（可选但推荐）
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+
+    // 开发依赖
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+    // 测试依赖
+    testImplementation 'org.springframework.boot:spring-boot-starter-data-r2dbc-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-jooq-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webclient-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webflux-test'
+    testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

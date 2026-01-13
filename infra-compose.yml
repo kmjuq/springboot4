@@ -1,0 +1,12 @@
+services:
+  nacos:
+    image: 'nacos/nacos-server:latest'
+    environment:
+      - 'MODE=standalone'
+      - 'NACOS_AUTH_TOKEN=7ab870c07f1482dece87fe0ff61a5478e581d8ce4d0d7f954a645f26205efde3'
+      - 'NACOS_AUTH_IDENTITY_KEY=nacos'
+      - 'NACOS_AUTH_IDENTITY_VALUE=111'
+    ports:
+      - 50680:8080
+      - 50681:8848
+      - 50682:9848

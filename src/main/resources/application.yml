@@ -1,9 +1,8 @@
 spring:
+  profiles:
+    active: dev
   application:
-    name: demo
-  devtools:
-    add-properties: true
-
-logging:
-  level:
-    root: DEBUG
+    name: agent_platform
+  config:
+    import:
+      - "classpath:config/db/application-${spring.profiles.active}.yml"
